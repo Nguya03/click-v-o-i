@@ -10,7 +10,6 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -28,20 +27,6 @@
             opacity: 1;
             pointer-events: auto;
         }
-        .slide-down {
-            animation: slideDown 1.5s ease forwards;
-        }
-        @keyframes slideDown {
-            0% { transform: translateY(-100%); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        .roll-in {
-            animation: rollIn 1.5s ease forwards;
-        }
-        @keyframes rollIn {
-            0% { transform: scaleY(0); opacity: 0; }
-            100% { transform: scaleY(1); opacity: 1; }
-        }
         .btn {
             padding: 10px 20px;
             font-size: 1.2em;
@@ -52,25 +37,26 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             transition: 0.3s;
-            margin: 20px 0;
-            visibility: visible;
         }
         .btn:hover {
             background: #ff4757;
         }
-        h1 {
-            font-size: 2.5em;
-            background: linear-gradient(45deg, #ff7eb3, #ff758c);
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
+        .gift-box img {
+            width: 120px;
+            transform: scale(0.8);
+            transition: transform 0.5s ease, rotate 0.5s ease;
         }
-        .note-box {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transform-origin: top;
+        .gift-box img.show {
+            transform: scale(1) rotate(10deg);
+        }
+        h2 {
+            font-size: 2em;
+            background: linear-gradient(45deg, #ff6b6b, #ffcccb, #ff6b6b);
+            -webkit-background-clip: text;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+            margin-bottom: 20px;
+            -webkit-text-stroke: 1px #ff4757;
         }
         p {
             font-size: 1.2em;
@@ -81,40 +67,52 @@
 </head>
 <body>
     <div id="start-screen" class="visible">
-        <button class="btn" onclick="showGift(event)">Nhấn vào đi Bình</button>
+        <button class="btn" onclick="showGift()">Nhấn vào đi Bình</button>
     </div>
 
     <div id="gift-screen" class="hidden">
-        <h1 class="slide-down">Mừng ngày 8/3 nhé 🎉</h1>
-        <img class="girl-image" src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Girl illustration">
-        <button class="btn" onclick="showLongWish(event)">Nhấn tiếp đi</button>
+        <div class="gift-box">
+            <img id="gift-image" src="https://cdn-icons-png.flaticon.com/512/1476/1476543.png" alt="Gift Box">
+            <h1>Mừng ngày 8/3 nhé 🎉</h1>
+            <button class="btn" onclick="showLongWish()">Nhấn tiếp đi</button>
+        </div>
     </div>
 
     <div id="final-message" class="hidden">
-        <h2 class="slide-down">Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
-        <div class="note-box roll-in">
-            <p>Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
-               Mong Bình vẫn dành thời gian cho bản thân, Có rất nhiều người ủng hộ và trân trọng cố gắng của Bình.<br>
-               Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
-            </p>
-        </div>
-        <button class="btn" onclick="restart(event)">Làm lại từ đầu</button>
+        <h2>Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
+        <p>Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
+           Mong Bình vẫn dành thời gian cho bản thân, Có rất nhiều người ủng hộ và trân trọng cố gắng của Bình.<br>
+           Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
+        </p>
     </div>
 
     <script>
-        function showGift(event) {
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('gift-screen').classList.remove('hidden');
+        function showGift() {
+            fadeOut('start-screen');
+            setTimeout(() => {
+                fadeIn('gift-screen');
+                const giftImage = document.getElementById('gift-image');
+                setTimeout(() => {
+                    giftImage.classList.add('show');
+                }, 300);
+            }, 1000);
         }
 
-        function showLongWish(event) {
-            document.getElementById('gift-screen').classList.add('hidden');
-            document.getElementById('final-message').classList.remove('hidden');
+        function showLongWish() {
+            fadeOut('gift-screen');
+            setTimeout(() => {
+                fadeIn('final-message');
+            }, 1000);
         }
 
-        function restart(event) {
-            document.getElementById('final-message').classList.add('hidden');
-            document.getElementById('start-screen').classList.remove('hidden');
+        function fadeOut(id) {
+            document.getElementById(id).classList.remove('visible');
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function fadeIn(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('visible');
         }
     </script>
 </body>
