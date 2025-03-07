@@ -27,6 +27,20 @@
             opacity: 1;
             pointer-events: auto;
         }
+        .slide-down {
+            animation: slideDown 1.5s ease forwards;
+        }
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 2s ease;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
         .btn {
             padding: 10px 20px;
             font-size: 1.2em;
@@ -37,23 +51,16 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             transition: 0.3s;
+            position: relative;
         }
         .btn:hover {
             background: #ff4757;
         }
-        .gift-box img {
-            width: 120px;
-            transform: scale(0.8);
-            transition: transform 0.5s ease, rotate 0.5s ease;
-        }
-        .gift-box img.show {
-            transform: scale(1) rotate(10deg);
-        }
-        h2 {
-            font-size: 2em;
+        h1 {
+            font-size: 2.5em;
             background: linear-gradient(45deg, #ff6b6b, #ffcccb, #ff6b6b);
             -webkit-background-clip: text;
-            color: #ff6b6b;
+            color: transparent;
             text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
             margin-bottom: 20px;
             -webkit-text-stroke: 1px #ff4757;
@@ -67,53 +74,21 @@
 </head>
 <body>
     <div id="start-screen" class="visible">
-        <button class="btn" onclick="showGift()">Nhấn vào đi Bình</button>
+        <button class="btn" onclick="showGift(event)">Nhấn vào đi Bình</button>
     </div>
 
     <div id="gift-screen" class="hidden">
-        <div class="gift-box">
-            <img id="gift-image" src="https://cdn-icons-png.flaticon.com/512/1476/1476543.png" alt="Gift Box">
-            <h1>Mừng ngày 8/3 nhé 🎉</h1>
-            <button class="btn" onclick="showLongWish()">Nhấn tiếp đi</button>
-        </div>
+        <h1 class="slide-down">Mừng ngày 8/3 nhé 🎉</h1>
+        <img class="girl-image" src="https://cdn-icons-png.flaticon.com/512/2921/2921222.png" alt="Girl illustration">
+        <button class="btn" onclick="showLongWish(event)">Nhấn tiếp đi</button>
     </div>
 
     <div id="final-message" class="hidden">
-        <h2>Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
-        <p>Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
+        <h2 class="fade-in">Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
+        <p class="fade-in">Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
            Mong Bình vẫn dành thời gian cho bản thân, Có rất nhiều người ủng hộ và trân trọng cố gắng của Bình.<br>
            Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
         </p>
     </div>
-
-    <script>
-        function showGift() {
-            fadeOut('start-screen');
-            setTimeout(() => {
-                fadeIn('gift-screen');
-                const giftImage = document.getElementById('gift-image');
-                setTimeout(() => {
-                    giftImage.classList.add('show');
-                }, 300);
-            }, 1000);
-        }
-
-        function showLongWish() {
-            fadeOut('gift-screen');
-            setTimeout(() => {
-                fadeIn('final-message');
-            }, 1000);
-        }
-
-        function fadeOut(id) {
-            document.getElementById(id).classList.remove('visible');
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        function fadeIn(id) {
-            document.getElementById(id).classList.remove('hidden');
-            document.getElementById(id).classList.add('visible');
-        }
-    </script>
 </body>
 </html>
