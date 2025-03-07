@@ -97,6 +97,24 @@
                Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
             </p>
         </div>
+        <button class="btn" onclick="restart(event)">Làm lại từ đầu</button>
     </div>
+
+    <script>
+        function showGift(event) {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('gift-screen').classList.remove('hidden');
+        }
+
+        function showLongWish(event) {
+            document.getElementById('gift-screen').classList.add('hidden');
+            document.getElementById('final-message').classList.remove('hidden');
+        }
+
+        function restart(event) {
+            document.getElementById('final-message').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
