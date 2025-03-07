@@ -21,6 +21,20 @@
         .hidden {
             display: none;
         }
+        .fade-in {
+            animation: fadeIn 2s ease forwards;
+        }
+        .fade-out {
+            animation: fadeOut 1.5s ease forwards;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
         .btn {
             padding: 10px 20px;
             font-size: 1.2em;
@@ -30,66 +44,47 @@
             border-radius: 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s, opacity 0.5s ease, transform 0.2s;
+            position: relative;
         }
         .btn:hover {
             background: #ff4757;
+            transform: scale(1.1);
         }
-        .gift-box img {
-            width: 120px;
-            transform: scale(0.8);
-            transition: transform 0.5s ease, rotate 0.5s ease;
+        .fireworks span {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            animation: explode 0.8s ease forwards;
         }
-        .gift-box img.show {
-            transform: scale(1) rotate(10deg);
-        }
-        .girl-image {
-            width: 200px;
-            margin-top: 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.5s ease;
-        }
-        h2 {
-            font-size: 2em;
-            background: linear-gradient(45deg, #ff6b6b, #ffcccb, #ff6b6b);
-            -webkit-background-clip: text;
-            color: #ff6b6b;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
-            margin-bottom: 20px;
-            -webkit-text-stroke: 1px #ff4757;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            padding: 0 10px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
+        .message-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 2px dashed #ff6b6b;
+            animation: fadeIn 3s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="start-screen">
-            <button class="btn" onclick="showGift()">Nhấn vào đi Bình</button>
+        <div id="start-screen" class="fade-in">
+            <button class="btn" onclick="showGift(this)">Nhấn vào đi Bình</button>
         </div>
 
-        <div id="gift-screen" class="hidden">
+        <div id="gift-screen" class="hidden fade-in">
             <div class="gift-box">
                 <img id="gift-image" src="https://cdn-icons-png.flaticon.com/512/1476/1476543.png" alt="Gift Box">
                 <h1>Mừng ngày 8/3 nhé 🎉</h1>
-                <img id="girl-image" class="girl-image hidden" src="image.png" alt="Cô gái">
-                <button class="btn" onclick="showLongWish()">Nhấn tiếp đi</button>
+                <button class="btn" onclick="showLongWish(this)">Nhấn tiếp đi</button>
             </div>
         </div>
 
-        <div id="final-message" class="hidden">
-            <h2>Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
+        <div id="final-message" class="hidden message-box fade-in">
+            <h2 class="shiny-text">Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
             <p>Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
                Mong Bình vẫn dành thời gian cho bản thân, Có rất nhiều người ủng hộ và trân trọng cố gắng của Bình.<br>
                Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
@@ -98,21 +93,35 @@
     </div>
 
     <script>
-        function showGift() {
-            document.getElementById('start-screen').classList.add('hidden');
-            document.getElementById('gift-screen').classList.remove('hidden');
-            const giftImage = document.getElementById('gift-image');
-            const girlImage = document.getElementById('girl-image');
+        function showGift(button) {
+            triggerFireworks(button);
+            button.classList.add('fade-out');
             setTimeout(() => {
-                giftImage.classList.add('show');
-                girlImage.classList.remove('hidden');
-                girlImage.style.transform = 'scale(1.05)';
-            }, 100);
+                document.getElementById('start-screen').classList.add('hidden');
+                document.getElementById('gift-screen').classList.remove('hidden');
+            }, 1500);
         }
 
-        function showLongWish() {
-            document.getElementById('gift-screen').classList.add('hidden');
-            document.getElementById('final-message').classList.remove('hidden');
+        function showLongWish(button) {
+            triggerFireworks(button);
+            button.classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('gift-screen').classList.add('hidden');
+                document.getElementById('final-message').classList.remove('hidden');
+            }, 1500);
+        }
+
+        function triggerFireworks(button) {
+            const fireworksContainer = document.createElement('div');
+            fireworksContainer.classList.add('fireworks');
+            button.appendChild(fireworksContainer);
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('span');
+                particle.style.setProperty('--x', `${Math.random() * 200 - 100}px`);
+                particle.style.setProperty('--y', `${Math.random() * 200 - 100}px`);
+                fireworksContainer.appendChild(particle);
+            }
+            setTimeout(() => fireworksContainer.remove(), 800);
         }
     </script>
 </body>
