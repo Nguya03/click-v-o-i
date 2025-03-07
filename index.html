@@ -10,6 +10,7 @@
             margin: 0;
             padding: 20px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -34,12 +35,12 @@
             0% { transform: translateY(-100%); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
-        .fade-in {
-            animation: fadeIn 2s ease;
+        .roll-in {
+            animation: rollIn 1.5s ease forwards;
         }
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes rollIn {
+            0% { transform: scaleY(0); opacity: 0; }
+            100% { transform: scaleY(1); opacity: 1; }
         }
         .btn {
             padding: 10px 20px;
@@ -51,19 +52,24 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             transition: 0.3s;
-            position: relative;
+            margin: 20px 0;
         }
         .btn:hover {
             background: #ff4757;
         }
         h1 {
             font-size: 2.5em;
-            background: linear-gradient(45deg, #ff6b6b, #ffcccb, #ff6b6b);
+            background: linear-gradient(45deg, #ff7eb3, #ff758c);
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
             margin-bottom: 20px;
-            -webkit-text-stroke: 1px #ff4757;
+        }
+        .note-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transform-origin: top;
         }
         p {
             font-size: 1.2em;
@@ -84,11 +90,13 @@
     </div>
 
     <div id="final-message" class="hidden">
-        <h2 class="fade-in">Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
-        <p class="fade-in">Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
-           Mong Bình vẫn dành thời gian cho bản thân, Có rất nhiều người ủng hộ và trân trọng cố gắng của Bình.<br>
-           Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
-        </p>
+        <h2 class="slide-down">Chúc Bình có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
+        <div class="note-box roll-in">
+            <p>Dù giai đoạn này có bộn bề nhưng hãy vững tin!<br>
+               Mong Bình vẫn dành thời gian cho bản thân, Có rất nhiều người ủng hộ và trân trọng cố gắng của Bình.<br>
+               Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
+            </p>
+        </div>
     </div>
 </body>
 </html>
