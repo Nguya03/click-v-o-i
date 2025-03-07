@@ -3,43 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lời Chúc Đặc Biệt</title>
+    <title>Lời Chúc 8/3 Đặc Biệt</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap">
     <style>
-        /* CSS cho trang web */
         body {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
-            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            font-family: 'Quicksand', sans-serif;
             text-align: center;
-            padding: 50px;
-            color: #fff;
+            box-sizing: border-box;
         }
-        h1 {
-            font-size: 3em;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        p {
-            font-size: 1.5em;
+        .hidden {
+            display: none;
         }
         .btn {
-            display: inline-block;
-            margin-top: 20px;
             padding: 10px 20px;
             font-size: 1.2em;
-            background-color: #ff6b6b;
+            background: #ff6b6b;
             color: #fff;
-            text-decoration: none;
+            border: none;
             border-radius: 30px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
             transition: 0.3s;
         }
         .btn:hover {
-            background-color: #ff4757;
+            background: #ff4757;
+        }
+        .gift-box img {
+            width: 120px;
+            transform: scale(0.8);
+            transition: transform 0.5s ease, rotate 0.5s ease;
+        }
+        .gift-box img.show {
+            transform: scale(1) rotate(10deg);
+        }
+        h2 {
+            font-size: 2em;
+            background: linear-gradient(45deg, #ff6b6b, #ffcccb, #ff6b6b);
+            -webkit-background-clip: text;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            padding: 0 10px;
         }
     </style>
 </head>
 <body>
-    <h1>🎉 Chúc Mừng Ngày Đặc Biệt 🎉</h1>
-    <p>Chúc bạn luôn hạnh phúc, thành công và gặp nhiều may mắn trong cuộc sống!</p>
-    <a class="btn" href="#">Nhận lời chúc</a>
+    <div id="start-screen">
+        <button class="btn" onclick="showGift()">Nhấn vào đi bạn</button>
+    </div>
+
+    <div id="gift-screen" class="hidden">
+        <div class="gift-box">
+            <img id="gift-image" src="https://cdn-icons-png.flaticon.com/512/1476/1476543.png" alt="Gift Box">
+            <h1>Mừng ngày 8/3 nhé 🎉</h1>
+            <button class="btn" onclick="showLongWish()">Nhấn tiếp đi</button>
+        </div>
+    </div>
+
+    <div id="final-message" class="hidden">
+        <h2>Chúc bạn có một ngày thật ý nghĩa và hạnh phúc cùng mọi người. 🌸</h2>
+        <p>Dù giai đoạn này có bộn bề nhưng xin hãy vững tin!<br>
+           Mong là bạn vẫn dành thời gian cho bản thân, nhớ là có rất nhiều người ủng hộ và trân trọng cố gắng của bạn.<br>
+           Cố lên nhá! (Nhưng mà cũng giữ gìn sức khỏe)
+        </p>
+    </div>
+
+    <script>
+        function showGift() {
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('gift-screen').classList.remove('hidden');
+            const giftImage = document.getElementById('gift-image');
+            setTimeout(() => {
+                giftImage.classList.add('show');
+            }, 100);
+        }
+
+        function showLongWish() {
+            document.getElementById('gift-screen').classList.add('hidden');
+            document.getElementById('final-message').classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
